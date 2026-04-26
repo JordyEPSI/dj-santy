@@ -4,25 +4,20 @@
 body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 .title-font { font-family: 'Oswald', sans-serif; }
 
-/* --- NOUVEAU CURSEUR ULTRA-STYLÉ (Inversion X-Ray) --- */
+/* --- CURSEUR ROUGE PERSONNALISÉ (Classique et élégant) --- */
 .cursor-dot {
-    width: 6px; height: 6px; background-color: #fff;
+    width: 8px; height: 8px; background-color: #E50914;
     position: fixed; top: 0; left: 0; border-radius: 50%;
     z-index: 9999; pointer-events: none;
-    mix-blend-mode: difference; /* Effet rayon X magique */
-    transform: translate(-50%, -50%); transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
 }
 .cursor-outline {
-    width: 35px; height: 35px; border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 40px; height: 40px; border: 1px solid rgba(229, 9, 20, 0.5);
     position: fixed; top: 0; left: 0; border-radius: 50%;
     z-index: 9998; pointer-events: none;
-    mix-blend-mode: difference;
     transform: translate(-50%, -50%); 
-    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
 }
-/* Apparence au survol d'un lien (Le point disparaît, le cercle se remplit) */
-body.cursor-hover .cursor-dot { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-body.cursor-hover .cursor-outline { width: 70px; height: 70px; background-color: #fff; border-color: transparent; }
 
 /* --- LOGO PULSE SLOW (Preloader) --- */
 @keyframes pulse-slow {
