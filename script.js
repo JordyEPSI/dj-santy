@@ -3,82 +3,66 @@ window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     setTimeout(() => {
         preloader.style.opacity = '0';
-        preloader.style.transition = 'opacity 0.8s ease';
         setTimeout(() => {
             preloader.style.display = 'none';
             document.body.classList.remove('overflow-hidden');
-        }, 800);
-    }, 1200);
+        }, 1000);
+    }, 1500);
 });
 
-// 2. CURSEUR PERSONNALISÉ (Souris)
+// 2. CURSEUR PERSONNALISÉ
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
-const hoverElements = document.querySelectorAll('.hover-scale, a, button, input, textarea');
+const hoverElements = document.querySelectorAll('a, button, input, textarea, .tilt-card');
 
-// Ne s'active que sur écran d'ordinateur (pas tactile)
 if (window.matchMedia("(pointer: fine)").matches) {
     window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        // Position immédiate pour le point rouge
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        // Position fluide pour le cercle
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+        
         cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 500, fill: "forwards" });
+            left: `${e.clientX}px`,
+            top: `${e.clientY}px`
+        }, { duration: 400, fill: "forwards" });
     });
 
-    // Grossit le curseur au survol des liens/boutons
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            cursorOutline.style.width = '60px';
-            cursorOutline.style.height = '60px';
-            cursorOutline.style.backgroundColor = 'rgba(229, 9, 20, 0.1)';
+            cursorOutline.style.width = '65px';
+            cursorOutline.style.height = '65px';
+            cursorOutline.style.borderColor = '#E50914';
+            cursorOutline.style.backgroundColor = 'rgba(229, 9, 20, 0.15)';
         });
         el.addEventListener('mouseleave', () => {
             cursorOutline.style.width = '40px';
             cursorOutline.style.height = '40px';
+            cursorOutline.style.borderColor = 'rgba(229, 9, 20, 0.5)';
             cursorOutline.style.backgroundColor = 'transparent';
         });
     });
 }
 
-// 3. EFFET 3D TILT (Inclinison au survol des cartes)
+// 3. EFFET 3D TILT
 const tiltCards = document.querySelectorAll('.tilt-card');
 tiltCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left; // Position X dans la carte
-        const y = e.clientY - rect.top;  // Position Y dans la carte
-        
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
-        // Calcule l'angle (max 10 degrés)
-        const rotateX = ((y - centerY) / centerY) * -5;
-        const rotateY = ((x - centerX) / centerX) * 5;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        const rotateX = ((y - centerY) / centerY) * -8; // Sensibilité
+        const rotateY = ((x - centerX) / centerX) * 8;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
     });
-
-    // Remet la carte à plat quand on quitte
     card.addEventListener('mouseleave', () => {
         card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        card.style.transition = 'transform 0.5s ease';
+        card.style.transition = 'transform 0.6s ease';
     });
-    
-    // Enlève la transition pendant le mouvement pour que ce soit fluide
-    card.addEventListener('mouseenter', () => {
-        card.style.transition = 'none';
-    });
+    card.addEventListener('mouseenter', () => card.style.transition = 'none');
 });
 
-// 4. SCROLL PROGRESSION & NAVBAR
+// 4. SCROLL PROGRESSION, NAVBAR & BOUTON REMONTER
 const navbar = document.getElementById('navbar');
 const progressBar = document.getElementById('progressBar');
 const scrollTopBtn = document.getElementById('scrollTopBtn');
@@ -98,39 +82,29 @@ window.addEventListener('scroll', () => {
         scrollTopBtn.classList.remove('opacity-100', 'translate-y-0', 'cursor-pointer');
     }
 });
-
 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// 5. MENU BURGER MOBILE
+// 5. MENU BURGER MOBILE (Corrigé et Simplifié)
 const burgerBtn = document.getElementById('burgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
-const spans = burgerBtn.querySelectorAll('span');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
 function toggleMenu() {
+    // Ajoute/Enlève la classe active sur le bouton pour l'animation CSS (≡ ↔ X)
+    burgerBtn.classList.toggle('active');
+    
+    // Ouvre/Ferme le menu overlay
     const isOpen = mobileMenu.classList.contains('translate-x-0');
     if (!isOpen) {
         mobileMenu.classList.replace('opacity-0', 'opacity-100');
         mobileMenu.classList.replace('translate-x-full', 'translate-x-0');
         mobileMenu.classList.remove('pointer-events-none');
         document.body.classList.add('overflow-hidden');
-        
-        spans[0].classList.add('rotate-45', 'translate-y-[10px]');
-        spans[0].classList.remove('-translate-y-2');
-        spans[1].classList.add('opacity-0');
-        spans[2].classList.add('-rotate-45', '-translate-y-[10px]');
-        spans[2].classList.remove('translate-y-2');
     } else {
         mobileMenu.classList.replace('opacity-100', 'opacity-0');
         mobileMenu.classList.replace('translate-x-0', 'translate-x-full');
         mobileMenu.classList.add('pointer-events-none');
         document.body.classList.remove('overflow-hidden');
-        
-        spans[0].classList.remove('rotate-45', 'translate-y-[10px]');
-        spans[0].classList.add('-translate-y-2');
-        spans[1].classList.remove('opacity-0');
-        spans[2].classList.remove('-rotate-45', '-translate-y-[10px]');
-        spans[2].classList.add('translate-y-2');
     }
 }
 burgerBtn.addEventListener('click', toggleMenu);
@@ -141,7 +115,7 @@ const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            revealObserver.unobserve(entry.target); // Ne s'anime qu'une seule fois pour plus de propreté
+            revealObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.15 });
