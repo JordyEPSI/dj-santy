@@ -1,0 +1,77 @@
+/* RESET & FONTS */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.title-font { font-family: 'Oswald', sans-serif; }
+
+/* HERO IMAGE (Ken Burns Effect) */
+.hero-section {
+    background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* EFFECTS */
+.glow-text {
+    text-shadow: 0 0 30px rgba(229, 9, 20, 0.4);
+    letter-spacing: -0.05em;
+}
+
+.glass-effect {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-glow {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+}
+
+.btn-glow:hover {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 10px 40px rgba(229, 9, 20, 0.6);
+}
+
+.btn-outline {
+    border: 1px solid rgba(229, 9, 20, 0.5);
+    color: #E50914;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: #E50914;
+    color: white;
+    border-color: #E50914;
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+}
+
+.tour-card {
+    transition: all 0.4s ease;
+}
+.tour-card:hover {
+    transform: scale(1.02);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(229, 9, 20, 0.3);
+}
+
+/* ANIMATIONS AU SCROLL */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Safe areas pour iPhones récents */
+.pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+}
