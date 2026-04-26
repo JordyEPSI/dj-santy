@@ -1,55 +1,61 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Cache le curseur natif pour utiliser le personnalisé */ }
+@media (max-width: 768px) { * { cursor: auto; } } /* Remet le curseur normal sur mobile */
+
 body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 .title-font { font-family: 'Oswald', sans-serif; }
 
-/* Background with fixed parallax */
+/* --- CUSTOM CURSOR --- */
+.cursor-dot {
+    width: 8px; height: 8px; background-color: #E50914;
+    position: fixed; top: 0; left: 0; border-radius: 50%;
+    z-index: 9999; pointer-events: none;
+    transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+}
+.cursor-outline {
+    width: 40px; height: 40px; border: 1px solid rgba(229, 9, 20, 0.5);
+    position: fixed; top: 0; left: 0; border-radius: 50%;
+    z-index: 9998; pointer-events: none;
+    transform: translate(-50%, -50%); transition: 0.15s ease-out;
+}
+
+/* --- HERO & BACKGROUNDS --- */
 .hero-section {
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(10,10,10,1)), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000');
+    background-size: cover; background-position: center; background-attachment: fixed;
 }
 
-/* Glassmorphism */
+/* --- MARQUEE TICKER --- */
+.marquee-content {
+    display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite;
+}
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* --- GLASS & EFFECTS --- */
 .glass-effect {
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
 }
 
-/* UI Elements */
 .btn-glow {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
-    display: inline-block;
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); display: inline-block;
 }
 .btn-glow:hover {
-    transform: scale(1.05) translateY(-3px);
-    box-shadow: 0 15px 40px rgba(229, 9, 20, 0.6);
+    box-shadow: 0 15px 40px rgba(229, 9, 20, 0.8);
 }
 
 .btn-outline {
-    border: 1px solid #E50914;
-    color: #E50914;
-    padding: 0.7rem 1.8rem;
-    border-radius: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    transition: 0.3s;
+    border: 2px solid #E50914; color: #E50914; padding: 0.7rem 2rem;
+    border-radius: 999px; font-weight: 700; text-transform: uppercase;
+    font-size: 0.8rem; letter-spacing: 0.15em; transition: 0.3s;
 }
-.btn-outline:hover { background: #E50914; color: white; }
+.btn-outline:hover { background: #E50914; color: white; box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); }
 
-.tour-card { transition: 0.4s ease; cursor: pointer; }
-.tour-card:hover { transform: scale(1.02); background: rgba(255,255,255,0.05); }
+/* --- 3D TILT EFFECT CLASSES --- */
+.tilt-card { transform-style: preserve-3d; transition: transform 0.1s ease; will-change: transform; }
 
-/* Animations */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.active { opacity: 1; transform: translateY(0); }
+/* --- ANIMATIONS SCROLL --- */
+.reveal { opacity: 0; transform: translateY(40px) scale(0.95); transition: 1s cubic-bezier(0.2, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
