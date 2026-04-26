@@ -10,40 +10,35 @@ window.addEventListener('load', () => {
     }, 1500);
 });
 
-// 2. CURSEUR MAGNÉTIQUE (Effet Trailing Fluide)
+// 2. CURSEUR ROUGE (Avec fluide Lerp)
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-let outlineX = mouseX;
-let outlineY = mouseY;
+const hoverElements = document.querySelectorAll('a, button, input, textarea, .tilt-card, .hover-scale');
 
 if (window.matchMedia("(pointer: fine)").matches) {
-    // Le point suit instantanément
     window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        cursorDot.style.left = `${mouseX}px`;
-        cursorDot.style.top = `${mouseY}px`;
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+        
+        // Le cercle suit avec animation fluide
+        cursorOutline.animate({
+            left: `${e.clientX}px`,
+            top: `${e.clientY}px`
+        }, { duration: 400, fill: "forwards" });
     });
 
-    // Le cercle suit avec un léger retard (Lerp)
-    function animateCursor() {
-        let distX = mouseX - outlineX;
-        let distY = mouseY - outlineY;
-        outlineX += distX * 0.15; // Ajuster ce chiffre pour la vitesse du retard
-        outlineY += distY * 0.15;
-        
-        cursorOutline.style.left = `${outlineX}px`;
-        cursorOutline.style.top = `${outlineY}px`;
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Effet Hover
-    document.querySelectorAll('a, button, input, textarea, .tilt-card, .hover-scale').forEach(el => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    // Effet au survol
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorOutline.style.width = '60px';
+            cursorOutline.style.height = '60px';
+            cursorOutline.style.backgroundColor = 'rgba(229, 9, 20, 0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorOutline.style.width = '40px';
+            cursorOutline.style.height = '40px';
+            cursorOutline.style.backgroundColor = 'transparent';
+        });
     });
 }
 
@@ -89,7 +84,7 @@ window.addEventListener('scroll', () => {
         scrollTopBtn.classList.remove('opacity-100', 'translate-y-0', 'cursor-pointer');
     }
 
-    // Nav mobile (Active link)
+    // Nav mobile (Active link pour App Bar)
     let current = "";
     document.querySelectorAll('section[id]').forEach(section => {
         if (pageYOffset >= section.offsetTop - 150) {
@@ -123,7 +118,7 @@ function toggleMenu() {
         mobileMenu.classList.replace('opacity-0', 'opacity-100');
         mobileMenu.classList.replace('translate-x-full', 'translate-x-0');
         mobileMenu.classList.remove('pointer-events-none');
-        document.body.classList.add('overflow-hidden'); // Bloque le scroll derrière
+        document.body.classList.add('overflow-hidden');
     } else {
         mobileMenu.classList.replace('opacity-100', 'opacity-0');
         mobileMenu.classList.replace('translate-x-0', 'translate-x-full');
