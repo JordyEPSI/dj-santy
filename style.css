@@ -1,5 +1,5 @@
-* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Cache le curseur natif pour utiliser le personnalisé */ }
-@media (max-width: 768px) { * { cursor: auto; } } /* Remet le curseur normal sur mobile */
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+@media (max-width: 768px) { * { cursor: auto; } }
 
 body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 .title-font { font-family: 'Oswald', sans-serif; }
@@ -18,7 +18,28 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
     transform: translate(-50%, -50%); transition: 0.15s ease-out;
 }
 
-/* --- HERO & BACKGROUNDS --- */
+/* --- LOGO PULSE SLOW (Preloader) --- */
+@keyframes pulse-slow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+.animate-pulse-slow { animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* --- BURGER ANIMATION --- */
+#burgerBtn.active .burger-lines span:nth-child(1) {
+    transform: rotate(45deg);
+    background-color: #E50914;
+}
+#burgerBtn.active .burger-lines span:nth-child(2) {
+    transform: scaleX(0);
+    opacity: 0;
+}
+#burgerBtn.active .burger-lines span:nth-child(3) {
+    transform: rotate(-45deg);
+    background-color: #E50914;
+}
+
+/* --- HERO & PARALLAX --- */
 .hero-section {
     background-image: linear-gradient(rgba(0,0,0,0.4), rgba(10,10,10,1)), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000');
     background-size: cover; background-position: center; background-attachment: fixed;
@@ -26,7 +47,7 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
 /* --- MARQUEE TICKER --- */
 .marquee-content {
-    display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite;
+    display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite;
 }
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -38,24 +59,24 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
 .btn-glow {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); display: inline-block;
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.5); display: inline-block;
 }
 .btn-glow:hover {
-    box-shadow: 0 15px 40px rgba(229, 9, 20, 0.8);
+    box-shadow: 0 15px 50px rgba(229, 9, 20, 0.9);
 }
 
 .btn-outline {
-    border: 2px solid #E50914; color: #E50914; padding: 0.7rem 2rem;
+    border: 2px solid #E50914; color: #E50914; padding: 0.8rem 2.2rem;
     border-radius: 999px; font-weight: 700; text-transform: uppercase;
     font-size: 0.8rem; letter-spacing: 0.15em; transition: 0.3s;
 }
-.btn-outline:hover { background: #E50914; color: white; box-shadow: 0 0 20px rgba(229, 9, 20, 0.5); }
+.btn-outline:hover { background: #E50914; color: white; box-shadow: 0 0 25px rgba(229, 9, 20, 0.6); }
 
-/* --- 3D TILT EFFECT CLASSES --- */
+/* --- 3D TILT EFFECT --- */
 .tilt-card { transform-style: preserve-3d; transition: transform 0.1s ease; will-change: transform; }
 
 /* --- ANIMATIONS SCROLL --- */
-.reveal { opacity: 0; transform: translateY(40px) scale(0.95); transition: 1s cubic-bezier(0.2, 1, 0.3, 1); }
+.reveal { opacity: 0; transform: translateY(50px) scale(0.9); transition: 1s cubic-bezier(0.2, 1, 0.3, 1); }
 .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
