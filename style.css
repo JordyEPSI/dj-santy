@@ -4,18 +4,20 @@
 body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 .title-font { font-family: 'Oswald', sans-serif; }
 
-/* --- CUSTOM CURSOR --- */
+/* --- NOUVEAU CURSEUR ANIMÉ --- */
 .cursor-dot {
-    width: 8px; height: 8px; background-color: #E50914;
+    width: 10px; height: 10px; background-color: #ffffff;
+    mix-blend-mode: difference; /* Inversion des couleurs sur fond blanc */
     position: fixed; top: 0; left: 0; border-radius: 50%;
     z-index: 9999; pointer-events: none;
-    transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+    transform: translate(-50%, -50%); transition: width 0.3s ease, height 0.3s ease;
 }
 .cursor-outline {
-    width: 40px; height: 40px; border: 1px solid rgba(229, 9, 20, 0.5);
+    width: 40px; height: 40px; border: 2px solid rgba(229, 9, 20, 0.6);
     position: fixed; top: 0; left: 0; border-radius: 50%;
     z-index: 9998; pointer-events: none;
-    transform: translate(-50%, -50%); transition: 0.15s ease-out;
+    transform: translate(-50%, -50%) rotate(0deg); 
+    transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s;
 }
 
 /* --- LOGO PULSE SLOW (Preloader) --- */
