@@ -8,7 +8,6 @@
     <meta name="description" content="Découvrez l'univers de Santy, DJ basé à Montpellier. Mixes Afro, Amapiano et Shatta.">
     <meta property="og:title" content="Santy | DJ & Producer">
     <meta property="og:image" content="santy.png">
-
     <link rel="icon" type="image/png" href="santy.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,61 +28,101 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-djdark text-white antialiased pb-20 md:pb-0 overflow-hidden">
+<body class="bg-djdark text-white antialiased overflow-x-hidden" id="top">
+
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
 
     <div id="preloader" class="fixed inset-0 z-[100] bg-djdark flex items-center justify-center">
-        <img src="santy.png" alt="Chargement..." class="w-32 animate-pulse drop-shadow-[0_0_15px_rgba(229,9,20,0.8)]">
+        <img src="santy.png" alt="Chargement..." class="w-32 animate-pulse drop-shadow-[0_0_20px_rgba(229,9,20,0.8)]">
     </div>
 
-    <nav id="navbar" class="hidden md:block fixed w-full z-50 p-4 transition-all duration-300">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="#">
-                <img src="santy.png" alt="Santy Logo" class="h-20 md:h-24 w-auto drop-shadow-xl transition-transform hover:scale-105">
+    <div id="progressBar" class="fixed top-0 left-0 h-1.5 bg-gradient-to-r from-red-900 via-djred to-red-500 z-[100] w-0 transition-all duration-75 rounded-r-full shadow-[0_0_15px_rgba(229,9,20,1)]"></div>
+
+    <nav id="navbar" class="fixed w-full z-50 p-4 transition-all duration-300">
+        <div class="max-w-6xl mx-auto flex justify-between items-center relative z-50">
+            <a href="#top" class="hover-scale">
+                <img src="santy.png" alt="Santy Logo" class="h-16 md:h-24 w-auto drop-shadow-xl">
             </a>
-            <div class="flex space-x-8 font-semibold items-center uppercase tracking-widest text-sm">
-                <a href="#music" class="hover:text-djred transition">Musique</a>
-                <a href="#tour" class="hover:text-djred transition">Dates</a>
-                <a href="#contact" class="hover:text-djred transition">Booking</a>
+            
+            <div class="hidden md:flex space-x-8 font-semibold items-center uppercase tracking-widest text-sm">
+                <a href="#bio" class="hover:text-djred transition hover-scale">Bio</a>
+                <a href="#music" class="hover:text-djred transition hover-scale">Musique</a>
+                <a href="#tour" class="hover:text-djred transition hover-scale">Dates</a>
+                <a href="#contact" class="hover:text-djred transition hover-scale">Booking</a>
             </div>
+
+            <button id="burgerBtn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 relative focus:outline-none z-[60]">
+                <span class="bg-white block transition-all duration-300 ease-out h-0.5 w-8 rounded-sm -translate-y-2"></span>
+                <span class="bg-white block transition-all duration-300 ease-out h-0.5 w-8 rounded-sm"></span>
+                <span class="bg-white block transition-all duration-300 ease-out h-0.5 w-8 rounded-sm translate-y-2"></span>
+            </button>
         </div>
     </nav>
 
-    <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-djdark/95 backdrop-blur-xl border-t border-white/10 pb-safe">
-        <div class="flex justify-around items-center p-3">
-            <a href="#" class="nav-link flex flex-col items-center text-djred">
-                <i class="ri-home-5-fill text-2xl mb-1"></i>
-                <span class="text-[10px] uppercase font-bold">Accueil</span>
-            </a>
-            <a href="#music" class="nav-link flex flex-col items-center text-gray-400">
-                <i class="ri-disc-line text-2xl mb-1"></i>
-                <span class="text-[10px] uppercase font-bold">Musique</span>
-            </a>
-            <a href="#tour" class="nav-link flex flex-col items-center text-gray-400">
-                <i class="ri-calendar-event-line text-2xl mb-1"></i>
-                <span class="text-[10px] uppercase font-bold">Dates</span>
-            </a>
-            <a href="#contact" class="nav-link flex flex-col items-center text-gray-400">
-                <i class="ri-mail-send-line text-2xl mb-1"></i>
-                <span class="text-[10px] uppercase font-bold">Contact</span>
-            </a>
+    <div id="mobileMenu" class="fixed inset-0 bg-djdark/95 backdrop-blur-2xl z-[40] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-500 transform translate-x-full">
+        <div class="flex flex-col items-center space-y-8">
+            <a href="#bio" class="mobile-link text-4xl font-heading uppercase italic font-bold text-white hover:text-djred transition-colors tracking-widest">Bio</a>
+            <a href="#music" class="mobile-link text-4xl font-heading uppercase italic font-bold text-white hover:text-djred transition-colors tracking-widest">Musique</a>
+            <a href="#tour" class="mobile-link text-4xl font-heading uppercase italic font-bold text-white hover:text-djred transition-colors tracking-widest">Dates</a>
+            <a href="#contact" class="mobile-link text-4xl font-heading uppercase italic font-bold text-white hover:text-djred transition-colors tracking-widest">Booking</a>
         </div>
-    </nav>
+    </div>
+
+    <button id="scrollTopBtn" class="fixed bottom-6 right-6 bg-djred text-white p-3 md:p-4 rounded-full shadow-[0_0_20px_rgba(229,9,20,0.6)] z-40 opacity-0 translate-y-10 transition-all duration-500 pointer-events-none hover:bg-white hover:text-djred hover:scale-110 hover-scale">
+        <i class="ri-arrow-up-line text-2xl md:text-3xl"></i>
+    </button>
 
     <section class="hero-section relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-black/60 z-10"></div>
+        <div class="particles absolute inset-0 z-10 opacity-30"></div>
+        
         <div class="relative z-30 text-center px-4 reveal flex flex-col items-center">
-            <h2 class="text-djred font-bold tracking-[0.4em] uppercase text-xs md:text-sm mb-6">Afro • Amapiano • Shatta</h2>
-            <img src="santy.png" alt="Santy" class="w-64 md:w-[400px] mb-8 drop-shadow-[0_0_30px_rgba(229,9,20,0.4)]">
-            <p class="max-w-xl mx-auto text-gray-300 mb-10 text-lg font-light italic">L'énergie des clubs de Montpellier.</p>
-            <a href="#contact" class="btn-glow bg-djred text-white font-bold py-4 px-10 rounded-full uppercase tracking-widest text-sm">
-                Booker maintenant
+            <h2 class="text-djred font-bold tracking-[0.5em] uppercase text-xs md:text-sm mb-6 glitch" data-text="Afro • Amapiano • Shatta">Afro • Amapiano • Shatta</h2>
+            <img src="santy.png" alt="Santy" class="w-64 md:w-[450px] mb-8 drop-shadow-[0_0_40px_rgba(229,9,20,0.5)] hover:scale-105 transition-transform duration-700">
+            <p class="max-w-xl mx-auto text-gray-300 mb-10 text-lg font-light italic tracking-wide">L'énergie pure des clubs. Sets explosifs & vibrations Afro-Caraïbes.</p>
+            <a href="#contact" class="btn-glow bg-djred text-white font-bold py-4 px-10 rounded-full uppercase tracking-widest text-sm hover-scale">
+                Booker Santy
             </a>
         </div>
     </section>
 
-    <section id="music" class="py-24 px-6 max-w-5xl mx-auto relative z-30">
-        <h2 class="text-4xl font-bold uppercase title-font mb-12 reveal">Derniers Mixes</h2>
-        <div class="bg-zinc-900/50 p-4 md:p-8 rounded-3xl border border-white/5 shadow-2xl reveal glass-effect">
+    <div class="bg-djred py-3 overflow-hidden border-y border-white/20 relative z-30 transform -rotate-1 scale-105 shadow-[0_0_30px_rgba(229,9,20,0.3)] my-10">
+        <div class="marquee-content whitespace-nowrap text-black font-heading font-bold text-2xl uppercase tracking-widest italic">
+            <span>AVAILABLE FOR BOOKING WORLDWIDE ⚡ AFRO VIBES ⚡ AMAPIANO ⚡ SHATTA ⚡ CLUB RESIDENT ⚡ FESTIVALS ⚡ </span>
+            <span>AVAILABLE FOR BOOKING WORLDWIDE ⚡ AFRO VIBES ⚡ AMAPIANO ⚡ SHATTA ⚡ CLUB RESIDENT ⚡ FESTIVALS ⚡ </span>
+        </div>
+    </div>
+
+    <section id="bio" class="py-20 px-6 max-w-5xl mx-auto relative z-30">
+        <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+            <div class="space-y-6">
+                <h2 class="text-5xl font-bold uppercase title-font italic text-djred">L'Artiste</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    Originaire du sud de la France, <span class="text-white font-bold">Santy</span> s'est rapidement imposé comme une figure montante de la scène clubbing à Montpellier. 
+                    Spécialiste des sonorités chaudes et percutantes, il fusionne les rythmes Afro, l'Amapiano d'Afrique du Sud et l'énergie brute du Shatta caribéen.
+                </p>
+                <div class="flex gap-8 pt-4">
+                    <div>
+                        <h4 class="text-4xl font-heading font-bold text-white">5+</h4>
+                        <p class="text-djred text-xs uppercase tracking-widest font-bold">Années d'exp.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-4xl font-heading font-bold text-white">100+</h4>
+                        <p class="text-djred text-xs uppercase tracking-widest font-bold">Clubs & Gigs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative tilt-card">
+                <div class="absolute inset-0 bg-djred transform translate-x-4 translate-y-4 rounded-2xl z-0 opacity-50"></div>
+                <img src="https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?q=80&w=800" alt="DJ in club" class="relative z-10 rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover h-[400px] w-full">
+            </div>
+        </div>
+    </section>
+
+    <section id="music" class="py-20 px-6 max-w-5xl mx-auto relative z-30">
+        <h2 class="text-5xl font-bold uppercase title-font mb-12 reveal italic">Derniers Mixes</h2>
+        <div class="bg-zinc-900/50 p-4 md:p-8 rounded-3xl border border-white/5 shadow-2xl reveal glass-effect tilt-card">
             <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1183100371&color=%23E50914&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" 
                 class="rounded-xl shadow-2xl">
@@ -91,56 +130,53 @@
         </div>
     </section>
 
-    <section id="tour" class="py-24 px-6 max-w-5xl mx-auto relative z-30">
-        <h2 class="text-4xl font-bold uppercase title-font mb-12 text-right reveal">Prochaines Dates</h2>
-        <div class="grid gap-4">
-            <div class="tour-card group flex flex-col md:flex-row justify-between items-center bg-zinc-900/40 p-6 rounded-2xl border border-white/5 reveal">
+    <section id="tour" class="py-20 px-6 max-w-5xl mx-auto relative z-30">
+        <h2 class="text-5xl font-bold uppercase title-font mb-12 text-right reveal italic text-djred">Prochaines Dates</h2>
+        <div class="grid gap-6">
+            <div class="tour-card group flex flex-col md:flex-row justify-between items-center bg-zinc-900/40 p-6 rounded-2xl border border-white/5 reveal tilt-card">
                 <div class="flex items-center gap-6">
-                    <div class="text-center bg-djred/10 px-4 py-2 rounded-xl border border-djred/20 group-hover:bg-djred transition-colors">
-                        <p class="text-djred font-bold text-2xl group-hover:text-white">15</p>
-                        <p class="text-gray-400 text-xs uppercase group-hover:text-white/80">Mai</p>
+                    <div class="text-center bg-djred/10 px-6 py-4 rounded-xl border border-djred/20 group-hover:bg-djred transition-colors duration-500 shadow-[0_0_15px_rgba(229,9,20,0)] group-hover:shadow-[0_0_15px_rgba(229,9,20,0.5)]">
+                        <p class="text-djred font-bold text-3xl group-hover:text-white transition-colors">15</p>
+                        <p class="text-gray-400 text-sm uppercase font-bold group-hover:text-white/80 transition-colors">Mai</p>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold italic title-font uppercase">KÒKAZ</h3>
-                        <p class="text-gray-500"><i class="ri-map-pin-2-fill text-djred"></i> Boum Boum • Montpellier</p>
+                        <h3 class="text-3xl font-bold italic title-font uppercase">KÒKAZ</h3>
+                        <p class="text-gray-500 mt-1"><i class="ri-map-pin-2-fill text-djred"></i> Boum Boum • Montpellier</p>
                     </div>
                 </div>
-                <a href="#" class="btn-outline mt-4 md:mt-0">Billetterie</a>
+                <a href="#" class="btn-outline mt-6 md:mt-0 hover-scale">Billetterie</a>
             </div>
         </div>
     </section>
 
     <section id="contact" class="py-24 px-6 max-w-3xl mx-auto relative z-30">
         <div class="text-center mb-12 reveal">
-            <h2 class="text-5xl font-bold uppercase title-font italic mb-4">Contact Booking</h2>
-            <p class="text-gray-400 italic">Une demande ? Remplissez le formulaire ci-dessous.</p>
+            <h2 class="text-6xl font-bold uppercase title-font italic mb-4 text-white">Contact</h2>
+            <p class="text-gray-400 italic text-lg tracking-widest">READY TO BURN THE CLUB ?</p>
         </div>
 
-        <form action="https://formspree.io/f/mdayjvjk" method="POST" class="space-y-4 reveal glass-effect p-8 rounded-3xl border border-white/5 shadow-2xl mb-16">
-            <div class="grid md:grid-cols-2 gap-4">
-                <input type="text" name="name" placeholder="Nom complet" required class="bg-white/5 border border-white/10 rounded-xl p-4 focus:border-djred outline-none transition w-full">
-                <input type="email" name="email" placeholder="Votre Email" required class="bg-white/5 border border-white/10 rounded-xl p-4 focus:border-djred outline-none transition w-full">
+        <form action="https://formspree.io/f/mdayjvjk" method="POST" class="space-y-6 reveal glass-effect p-8 md:p-12 rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(229,9,20,0.1)] mb-16 tilt-card">
+            <div class="grid md:grid-cols-2 gap-6">
+                <input type="text" name="name" placeholder="Nom complet" required class="bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:border-djred outline-none transition w-full focus:shadow-[0_0_15px_rgba(229,9,20,0.3)]">
+                <input type="email" name="email" placeholder="Votre Email" required class="bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:border-djred outline-none transition w-full focus:shadow-[0_0_15px_rgba(229,9,20,0.3)]">
             </div>
-            <input type="text" name="subject" placeholder="Sujet" required class="bg-white/5 border border-white/10 rounded-xl p-4 focus:border-djred outline-none transition w-full">
-            <textarea name="message" placeholder="Votre message..." rows="5" required class="bg-white/5 border border-white/10 rounded-xl p-4 focus:border-djred outline-none transition w-full"></textarea>
-            <button type="submit" class="w-full bg-djred text-white font-bold py-4 rounded-xl hover:bg-red-700 transition-all uppercase tracking-widest">
+            <input type="text" name="subject" placeholder="Sujet" required class="bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:border-djred outline-none transition w-full focus:shadow-[0_0_15px_rgba(229,9,20,0.3)]">
+            <textarea name="message" placeholder="Votre message..." rows="4" required class="bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:border-djred outline-none transition w-full focus:shadow-[0_0_15px_rgba(229,9,20,0.3)]"></textarea>
+            <button type="submit" class="w-full bg-djred text-white font-bold py-5 rounded-xl hover:bg-white hover:text-djred transition-all uppercase tracking-[0.2em] shadow-lg shadow-djred/30 hover:shadow-white/30 text-lg hover-scale">
                 Envoyer la demande
             </button>
         </form>
-
-        <div class="text-center reveal">
-            <div class="flex flex-col gap-4 mb-10">
-                <a href="mailto:booking@santy-dj.com" class="text-xl md:text-2xl font-bold hover:text-djred transition tracking-wider underline underline-offset-8 decoration-djred decoration-2">SANTY@DJ-OFFICIAL.COM</a>
-                <a href="tel:+33621672056" class="text-xl font-bold text-gray-400 hover:text-djred transition tracking-widest italic"><i class="ri-phone-fill mr-2"></i> 06 21 67 20 56</a>
-            </div>
-        </div>
     </section>
 
-    <footer class="bg-black py-10 border-t border-white/5 text-center px-6 relative z-30">
-        <div class="flex justify-center gap-8 mb-8">
-            <a href="https://www.instagram.com/santyy.dj/" target="_blank" class="text-3xl text-gray-500 hover:text-djred transition-transform hover:scale-125"><i class="ri-instagram-fill"></i></a>
-            <a href="https://www.tiktok.com/@santyy.dj" target="_blank" class="text-3xl text-gray-500 hover:text-djred transition-transform hover:scale-125"><i class="ri-tiktok-fill"></i></a>
-            <a href="#" class="text-3xl text-gray-500 hover:text-djred transition-transform hover:scale-125"><i class="ri-soundcloud-fill"></i></a>
+    <footer class="bg-black py-12 border-t border-white/10 text-center px-6 relative z-30">
+        <div class="flex flex-col gap-2 mb-10">
+            <a href="mailto:booking@santy-dj.com" class="text-xl md:text-3xl font-bold hover:text-djred transition tracking-wider underline underline-offset-8 decoration-djred decoration-2 hover-scale">SANTY@DJ-OFFICIAL.COM</a>
+            <a href="tel:+33621672056" class="text-xl font-bold text-gray-400 hover:text-djred transition tracking-widest italic mt-4 hover-scale"><i class="ri-phone-fill mr-2"></i> 06 21 67 20 56</a>
+        </div>
+        <div class="flex justify-center gap-10 mb-10">
+            <a href="https://www.instagram.com/santyy.dj/" target="_blank" class="text-4xl text-gray-500 hover:text-djred transition-transform hover:-translate-y-2 hover-scale"><i class="ri-instagram-fill"></i></a>
+            <a href="https://www.tiktok.com/@santyy.dj" target="_blank" class="text-4xl text-gray-500 hover:text-djred transition-transform hover:-translate-y-2 hover-scale"><i class="ri-tiktok-fill"></i></a>
+            <a href="#" class="text-4xl text-gray-500 hover:text-djred transition-transform hover:-translate-y-2 hover-scale"><i class="ri-soundcloud-fill"></i></a>
         </div>
         <p class="text-gray-700 text-xs uppercase tracking-[0.5em]">© 2026 Santy • Construit par son frère</p>
     </footer>
