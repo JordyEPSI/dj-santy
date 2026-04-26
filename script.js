@@ -10,16 +10,18 @@ window.addEventListener('load', () => {
     }, 1500);
 });
 
-// 2. CURSEUR PERSONNALISÉ
+// 2. CURSEUR PERSONNALISÉ (Nouveau comportement)
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
-const hoverElements = document.querySelectorAll('a, button, input, textarea, .tilt-card');
+const hoverElements = document.querySelectorAll('a, button, input, textarea, .tilt-card, .hover-scale');
 
 if (window.matchMedia("(pointer: fine)").matches) {
     window.addEventListener('mousemove', (e) => {
+        // Le point suit exactement la souris
         cursorDot.style.left = `${e.clientX}px`;
         cursorDot.style.top = `${e.clientY}px`;
         
+        // Le cercle suit avec un léger retard élastique
         cursorOutline.animate({
             left: `${e.clientX}px`,
             top: `${e.clientY}px`
@@ -28,16 +30,30 @@ if (window.matchMedia("(pointer: fine)").matches) {
 
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            cursorOutline.style.width = '65px';
-            cursorOutline.style.height = '65px';
-            cursorOutline.style.borderColor = '#E50914';
+            // Effet diamant : grossit, devient un carré et tourne
+            cursorOutline.style.width = '60px';
+            cursorOutline.style.height = '60px';
+            cursorOutline.style.borderRadius = '15px';
+            cursorOutline.style.transform = 'translate(-50%, -50%) rotate(45deg)';
             cursorOutline.style.backgroundColor = 'rgba(229, 9, 20, 0.15)';
+            cursorOutline.style.borderColor = '#E50914';
+            
+            // Le point grossit un peu au centre
+            cursorDot.style.width = '15px';
+            cursorDot.style.height = '15px';
         });
+        
         el.addEventListener('mouseleave', () => {
+            // Retour à la forme de base (cercle fin)
             cursorOutline.style.width = '40px';
             cursorOutline.style.height = '40px';
-            cursorOutline.style.borderColor = 'rgba(229, 9, 20, 0.5)';
+            cursorOutline.style.borderRadius = '50%';
+            cursorOutline.style.transform = 'translate(-50%, -50%) rotate(0deg)';
             cursorOutline.style.backgroundColor = 'transparent';
+            cursorOutline.style.borderColor = 'rgba(229, 9, 20, 0.6)';
+            
+            cursorDot.style.width = '10px';
+            cursorDot.style.height = '10px';
         });
     });
 }
@@ -51,7 +67,7 @@ tiltCards.forEach(card => {
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -8; // Sensibilité
+        const rotateX = ((y - centerY) / centerY) * -8;
         const rotateY = ((x - centerX) / centerX) * 8;
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
     });
@@ -84,16 +100,14 @@ window.addEventListener('scroll', () => {
 });
 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// 5. MENU BURGER MOBILE (Corrigé et Simplifié)
+// 5. MENU BURGER MOBILE
 const burgerBtn = document.getElementById('burgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
 function toggleMenu() {
-    // Ajoute/Enlève la classe active sur le bouton pour l'animation CSS (≡ ↔ X)
     burgerBtn.classList.toggle('active');
     
-    // Ouvre/Ferme le menu overlay
     const isOpen = mobileMenu.classList.contains('translate-x-0');
     if (!isOpen) {
         mobileMenu.classList.replace('opacity-0', 'opacity-100');
