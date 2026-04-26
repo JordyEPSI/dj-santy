@@ -27,7 +27,8 @@
 
     <nav class="fixed w-full z-50 bg-djdark/90 backdrop-blur-sm border-b border-white/10 p-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="text-3xl font-heading font-bold italic tracking-wider text-djred">SANTY</div>
+            <img src="santy.png" alt="Santy DJ Logo" class="h-12 md:h-16 w-auto drop-shadow-md">
+            
             <div class="space-x-6 hidden md:block font-semibold">
                 <a href="#music" class="hover:text-djred transition">Musique</a>
                 <a href="#tour" class="hover:text-djred transition">Dates</a>
@@ -37,9 +38,12 @@
     </nav>
 
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-djred/10 to-djdark z-0"></div>
+        <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-black/70 z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-djred/20 to-djdark z-20"></div>
+        </div>
         
-        <div class="relative z-10 text-center px-4">
+        <div class="relative z-30 text-center px-4">
             <h2 class="text-djred font-bold tracking-widest uppercase text-sm md:text-lg mb-2">Afro • Amapiano • Shatta</h2>
             <h1 class="text-6xl md:text-9xl font-heading font-bold uppercase italic tracking-tighter mb-6">Santy</h1>
             <p class="max-w-xl mx-auto text-gray-400 mb-8 text-lg">L'énergie des clubs. Des sets explosifs. Réservez votre prochaine soirée.</p>
@@ -49,17 +53,18 @@
         </div>
     </section>
 
-    <section id="music" class="py-20 px-4 max-w-6xl mx-auto">
+    <section id="music" class="py-20 px-4 max-w-6xl mx-auto relative z-30">
         <h2 class="text-4xl font-heading font-bold uppercase mb-10 border-l-4 border-djred pl-4">Derniers Mixes</h2>
         <div class="bg-zinc-900 p-6 rounded-2xl border border-white/5 shadow-xl text-center">
-            <p class="text-gray-500 mb-4">🎵 C'est ici qu'on intègrera le lecteur SoundCloud (iframe) de son dernier set.</p>
-            <div class="h-48 bg-zinc-800 rounded-lg flex items-center justify-center border border-dashed border-zinc-600">
-                <span class="text-zinc-500">Lecteur Audio Placeholder</span>
-            </div>
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1183100371&color=%23E50914&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" 
+                class="rounded-lg shadow-2xl border border-white/10">
+            </iframe>
+            <p class="text-xs text-gray-600 mt-3 text-left">*Ceci est un mix d'exemple (Amapiano), nous le remplacerons par le profil SoundCloud officiel de Santy.</p>
         </div>
     </section>
 
-    <section id="tour" class="py-20 px-4 max-w-6xl mx-auto">
+    <section id="tour" class="py-20 px-4 max-w-6xl mx-auto relative z-30">
         <h2 class="text-4xl font-heading font-bold uppercase mb-10 border-l-4 border-djred pl-4">Prochaines Dates</h2>
         <div class="flex flex-col space-y-4">
             <div class="flex flex-col md:flex-row justify-between items-center bg-zinc-900 p-6 rounded-lg hover:bg-zinc-800 transition border border-white/5">
@@ -91,7 +96,7 @@
         </div>
     </section>
 
-    <footer id="contact" class="bg-black py-12 border-t border-white/10 text-center px-4">
+    <footer id="contact" class="bg-black py-12 border-t border-white/10 text-center px-4 relative z-30">
         <h2 class="text-3xl font-heading font-bold uppercase mb-6">Contact & Booking</h2>
         <p class="text-gray-400 mb-6">Pour toute demande de booking, contactez-nous directement :</p>
         <a href="mailto:booking@santy-dj.com" class="text-djred text-xl font-bold hover:underline">booking@santy-dj.com</a>
