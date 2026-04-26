@@ -10,51 +10,40 @@ window.addEventListener('load', () => {
     }, 1500);
 });
 
-// 2. CURSEUR PERSONNALISÉ (Nouveau comportement)
+// 2. CURSEUR MAGNÉTIQUE (Effet Trailing Fluide)
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
-const hoverElements = document.querySelectorAll('a, button, input, textarea, .tilt-card, .hover-scale');
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+let outlineX = mouseX;
+let outlineY = mouseY;
 
 if (window.matchMedia("(pointer: fine)").matches) {
+    // Le point suit instantanément
     window.addEventListener('mousemove', (e) => {
-        // Le point suit exactement la souris
-        cursorDot.style.left = `${e.clientX}px`;
-        cursorDot.style.top = `${e.clientY}px`;
-        
-        // Le cercle suit avec un léger retard élastique
-        cursorOutline.animate({
-            left: `${e.clientX}px`,
-            top: `${e.clientY}px`
-        }, { duration: 400, fill: "forwards" });
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
     });
 
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            // Effet diamant : grossit, devient un carré et tourne
-            cursorOutline.style.width = '60px';
-            cursorOutline.style.height = '60px';
-            cursorOutline.style.borderRadius = '15px';
-            cursorOutline.style.transform = 'translate(-50%, -50%) rotate(45deg)';
-            cursorOutline.style.backgroundColor = 'rgba(229, 9, 20, 0.15)';
-            cursorOutline.style.borderColor = '#E50914';
-            
-            // Le point grossit un peu au centre
-            cursorDot.style.width = '15px';
-            cursorDot.style.height = '15px';
-        });
+    // Le cercle suit avec un léger retard (Lerp)
+    function animateCursor() {
+        let distX = mouseX - outlineX;
+        let distY = mouseY - outlineY;
+        outlineX += distX * 0.15; // Ajuster ce chiffre pour la vitesse du retard
+        outlineY += distY * 0.15;
         
-        el.addEventListener('mouseleave', () => {
-            // Retour à la forme de base (cercle fin)
-            cursorOutline.style.width = '40px';
-            cursorOutline.style.height = '40px';
-            cursorOutline.style.borderRadius = '50%';
-            cursorOutline.style.transform = 'translate(-50%, -50%) rotate(0deg)';
-            cursorOutline.style.backgroundColor = 'transparent';
-            cursorOutline.style.borderColor = 'rgba(229, 9, 20, 0.6)';
-            
-            cursorDot.style.width = '10px';
-            cursorDot.style.height = '10px';
-        });
+        cursorOutline.style.left = `${outlineX}px`;
+        cursorOutline.style.top = `${outlineY}px`;
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Effet Hover
+    document.querySelectorAll('a, button, input, textarea, .tilt-card, .hover-scale').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
 }
 
@@ -82,12 +71,14 @@ tiltCards.forEach(card => {
 const navbar = document.getElementById('navbar');
 const progressBar = document.getElementById('progressBar');
 const scrollTopBtn = document.getElementById('scrollTopBtn');
+const navLinks = document.querySelectorAll('.nav-link');
 
 window.addEventListener('scroll', () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     progressBar.style.width = `${(scrollTop / scrollHeight) * 100}%`;
 
+    // Navbar et Bouton
     if (scrollTop > 80) {
         navbar.classList.add('bg-djdark/95', 'backdrop-blur-2xl', 'border-b', 'border-white/10', 'py-1');
         scrollTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
@@ -97,13 +88,32 @@ window.addEventListener('scroll', () => {
         scrollTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
         scrollTopBtn.classList.remove('opacity-100', 'translate-y-0', 'cursor-pointer');
     }
+
+    // Nav mobile (Active link)
+    let current = "";
+    document.querySelectorAll('section[id]').forEach(section => {
+        if (pageYOffset >= section.offsetTop - 150) {
+            current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {
+        link.classList.remove('text-djred');
+        link.classList.add('text-gray-400');
+        if (current && link.getAttribute('href').includes(current)) {
+            link.classList.add('text-djred');
+            link.classList.remove('text-gray-400');
+        } else if (!current && link.getAttribute('href') === "#top") {
+            link.classList.add('text-djred');
+            link.classList.remove('text-gray-400');
+        }
+    });
 });
 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// 5. MENU BURGER MOBILE
+// 5. MENU BURGER MOBILE & CROIX PARFAITE
 const burgerBtn = document.getElementById('burgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
-const mobileLinks = document.querySelectorAll('.mobile-link');
+const mobileOverlayLinks = document.querySelectorAll('.mobile-link');
 
 function toggleMenu() {
     burgerBtn.classList.toggle('active');
@@ -113,7 +123,7 @@ function toggleMenu() {
         mobileMenu.classList.replace('opacity-0', 'opacity-100');
         mobileMenu.classList.replace('translate-x-full', 'translate-x-0');
         mobileMenu.classList.remove('pointer-events-none');
-        document.body.classList.add('overflow-hidden');
+        document.body.classList.add('overflow-hidden'); // Bloque le scroll derrière
     } else {
         mobileMenu.classList.replace('opacity-100', 'opacity-0');
         mobileMenu.classList.replace('translate-x-0', 'translate-x-full');
@@ -122,9 +132,9 @@ function toggleMenu() {
     }
 }
 burgerBtn.addEventListener('click', toggleMenu);
-mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+mobileOverlayLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-// 6. SCROLL REVEAL (Animation d'apparition)
+// 6. SCROLL REVEAL
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
