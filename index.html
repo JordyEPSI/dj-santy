@@ -10,7 +10,6 @@
     <meta property="og:image" content="santy.png">
     <link rel="icon" type="image/png" href="santy.png">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,26 +24,21 @@
         }
     </script>
 
-    <!-- Polices & Icônes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-djdark text-white antialiased overflow-x-hidden pb-20 md:pb-0" id="top">
 
-    <!-- CURSEUR PERSONNALISÉ (PC uniquement) -->
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
 
-    <!-- PRELOADER -->
     <div id="preloader" class="fixed inset-0 z-[100] bg-djdark flex items-center justify-center transition-opacity duration-1000 ease-in-out">
         <img src="santy.png" alt="Santy" class="w-48 md:w-64 animate-pulse-slow drop-shadow-[0_0_25px_rgba(229,9,20,0.9)]">
     </div>
 
-    <!-- BARRE DE PROGRESSION -->
     <div id="progressBar" class="fixed top-0 left-0 h-1.5 bg-gradient-to-r from-red-900 via-djred to-red-500 z-[100] w-0 transition-all duration-75 rounded-r-full shadow-[0_0_15px_rgba(229,9,20,1)]"></div>
 
-    <!-- NAVBAR HEADER -->
     <nav id="navbar" class="fixed w-full z-[60] p-4 transition-all duration-300">
         <div class="max-w-6xl mx-auto flex justify-between items-center relative">
             <a href="#top" class="hover-scale">
@@ -58,7 +52,6 @@
                 <a href="#contact" class="hover:text-djred transition hover-scale">Booking</a>
             </div>
 
-            <!-- BOUTON BURGER MOBILE (Croix Parfaite) -->
             <button id="burgerBtn" class="md:hidden flex flex-col justify-between w-8 h-6 relative focus:outline-none" aria-label="Menu">
                 <span class="bg-white block transition-all duration-300 ease-in-out h-0.5 w-full rounded-sm"></span>
                 <span class="bg-white block transition-all duration-300 ease-in-out h-0.5 w-full rounded-sm"></span>
@@ -67,7 +60,6 @@
         </div>
     </nav>
 
-    <!-- MENU MOBILE OVERLAY -->
     <div id="mobileMenu" class="fixed inset-0 bg-djdark/98 backdrop-blur-3xl z-[55] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-500 transform translate-x-full">
         <div class="flex flex-col items-center space-y-10">
             <a href="#bio" class="mobile-link text-5xl font-heading uppercase italic font-bold text-white hover:text-djred transition-colors tracking-widest">Bio</a>
@@ -77,7 +69,6 @@
         </div>
     </div>
 
-    <!-- NAVIGATION MOBILE EN BAS (App Bar) -->
     <nav class="md:hidden fixed bottom-0 left-0 w-full z-[60] bg-djdark/95 backdrop-blur-xl border-t border-white/10 pb-safe">
         <div class="flex justify-around items-center p-3">
             <a href="#top" class="nav-link flex flex-col items-center text-djred transition-colors">
@@ -99,12 +90,10 @@
         </div>
     </nav>
 
-    <!-- BOUTON REMONTER -->
     <button id="scrollTopBtn" class="fixed bottom-24 md:bottom-6 right-6 bg-djred text-white p-3 md:p-4 rounded-full shadow-[0_0_20px_rgba(229,9,20,0.6)] z-40 opacity-0 translate-y-10 transition-all duration-500 pointer-events-none hover:bg-white hover:text-djred hover:scale-110 hover-scale">
         <i class="ri-arrow-up-line text-2xl md:text-3xl"></i>
     </button>
 
-    <!-- HERO SECTION -->
     <section class="hero-section relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-black/60 z-10"></div>
         <div class="particles absolute inset-0 z-10 opacity-30"></div>
@@ -119,15 +108,13 @@
         </div>
     </section>
 
-    <!-- BANDEAU DÉFILANT -->
     <div class="bg-djred py-3 overflow-hidden border-y border-white/20 relative z-30 transform -rotate-1 scale-105 shadow-[0_0_30px_rgba(229,9,20,0.3)] my-10">
         <div class="marquee-content whitespace-nowrap text-black font-heading font-bold text-2xl uppercase tracking-widest italic">
-            <span>AVAILABLE FOR BOOKING WORLDWIDE ⚡ AFRO VIBES ⚡ AMAPIANO ⚡ SHATTA ⚡ RAP ⚡ FESTIVALS ⚡ </span>
-            <span>AVAILABLE FOR BOOKING WORLDWIDE ⚡ AFRO VIBES ⚡ AMAPIANO ⚡ SHATTA ⚡ RAP ⚡ FESTIVALS ⚡ </span>
+            <span>AVAILABLE FOR BOOKING WORLDWIDE ⚡ AFRO VIBES ⚡ AMAPIANO ⚡ SHATTA ⚡ CLUB RESIDENT ⚡ FESTIVALS ⚡ </span>
+            <span>AVAILABLE FOR BOOKING WORLDWIDE ⚡ AFRO VIBES ⚡ AMAPIANO ⚡ SHATTA ⚡ CLUB RESIDENT ⚡ FESTIVALS ⚡ </span>
         </div>
     </div>
 
-    <!-- BIO SECTION -->
     <section id="bio" class="py-20 px-6 max-w-5xl mx-auto relative z-30">
         <div class="grid md:grid-cols-2 gap-12 items-center reveal">
             <div class="space-y-6">
@@ -149,12 +136,11 @@
             </div>
             <div class="relative tilt-card">
                 <div class="absolute inset-0 bg-djred transform translate-x-4 translate-y-4 rounded-2xl z-0 opacity-50"></div>
-                <img src="https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?q=80&w=800" alt="DJ in club" class="relative z-10 rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover h-[400px] w-full">
+                <img src="photo_santy.jpg" alt="Santy Profile" class="relative z-10 rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover h-[400px] w-full">
             </div>
         </div>
     </section>
 
-    <!-- MUSIQUE -->
     <section id="music" class="py-20 px-6 max-w-5xl mx-auto relative z-30">
         <h2 class="text-5xl font-bold uppercase title-font mb-12 reveal italic">Derniers Mixes</h2>
         <div class="bg-zinc-900/50 p-4 md:p-8 rounded-3xl border border-white/5 shadow-2xl reveal glass-effect tilt-card">
@@ -165,7 +151,6 @@
         </div>
     </section>
 
-    <!-- TOUR DATES -->
     <section id="tour" class="py-20 px-6 max-w-5xl mx-auto relative z-30">
         <h2 class="text-5xl font-bold uppercase title-font mb-12 text-right reveal italic text-djred">Prochaines Dates</h2>
         <div class="grid gap-6">
@@ -185,11 +170,10 @@
         </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="py-24 px-6 max-w-3xl mx-auto relative z-30">
         <div class="text-center mb-12 reveal">
-            <h2 class="text-6xl font-bold uppercase title-font italic mb-4 text-white">Contact</h2>
-            <p class="text-gray-400 italic text-lg tracking-widest">READY TO BURN THE CLUB ?</p>
+            <h2 class="text-6xl font-bold uppercase title-font italic mb-4 text-white glitch" data-text="Contact">Contact</h2>
+            <p class="text-gray-400 italic text-lg tracking-widest glitch" data-text="READY TO BURN THE CLUB ?">READY TO BURN THE CLUB ?</p>
         </div>
 
         <form action="https://formspree.io/f/mdayjvjk" method="POST" class="space-y-6 reveal glass-effect p-8 md:p-12 rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(229,9,20,0.1)] mb-16 tilt-card">
@@ -205,7 +189,6 @@
         </form>
     </section>
 
-    <!-- FOOTER -->
     <footer class="bg-black py-12 border-t border-white/10 text-center px-6 relative z-30">
         <div class="flex flex-col gap-2 mb-10">
             <a href="mailto:booking@santy-dj.com" class="text-xl md:text-3xl font-bold hover:text-djred transition tracking-wider underline underline-offset-8 decoration-djred decoration-2 hover-scale">SANTY@DJ-OFFICIAL.COM</a>
