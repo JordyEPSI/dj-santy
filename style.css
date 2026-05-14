@@ -33,7 +33,7 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
 /* --- HERO & PARALLAX --- */
 .hero-section {
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(10,10,10,1)), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000');
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(10,10,10,1)), url('santy.jfif');
     background-size: cover; background-position: center; background-attachment: fixed;
 }
 
