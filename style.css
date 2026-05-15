@@ -32,9 +32,20 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 #burgerBtn.active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); background-color: #E50914; }
 
 /* --- HERO & PARALLAX --- */
+
+/* 1. Image pour Mobile (chargée par défaut) */
 .hero-section {
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(10,10,10,1)), url('santy.jfif');
-    background-size: cover; background-position: center; background-attachment: fixed;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(10,10,10,1)), url('photo_santy2.jpeg');
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+}
+
+/* 2. Image pour PC (écrans plus larges que 768px) */
+@media (min-width: 768px) {
+    .hero-section {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(10,10,10,1)), url('santy.jfif');
+    }
 }
 
 /* --- MARQUEE TICKER --- */
