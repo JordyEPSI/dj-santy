@@ -33,18 +33,20 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
 /* --- HERO & PARALLAX --- */
 
-/* 1. Image pour Mobile (chargée par défaut) */
+/* 1. Image pour Mobile (Scroll normal pour éviter le bug iPhone) */
 .hero-section {
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(10,10,10,1)), url('photo_santy2.jpeg');
     background-size: cover; 
     background-position: center; 
-    background-attachment: fixed;
+    background-attachment: scroll; /* <-- LA CORRECTION EST ICI */
+    background-repeat: no-repeat;
 }
 
-/* 2. Image pour PC (écrans plus larges que 768px) */
+/* 2. Image pour PC (Parallax activé pour les grands écrans) */
 @media (min-width: 768px) {
     .hero-section {
         background-image: linear-gradient(rgba(0,0,0,0.5), rgba(10,10,10,1)), url('santy.jfif');
+        background-attachment: fixed; /* On remet l'effet fixe sur PC */
     }
 }
 
